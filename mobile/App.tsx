@@ -1,8 +1,8 @@
 import { ClerkProvider } from '@clerk/clerk-expo'
 import {
-  Montserrat_400Regular,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold,
+  Montserrat_400Regular as MontserratRegular /* @note: the names have been changed because camelcase rule from eslint */,
+  Montserrat_500Medium as MontserratMedium,
+  Montserrat_600SemiBold as MontserratSemiBold,
   useFonts
 } from '@expo-google-fonts/montserrat'
 import { StatusBar } from 'expo-status-bar'
@@ -12,15 +12,13 @@ import { Routes } from './src/routes'
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_500Medium,
-    Montserrat_600SemiBold,
+    MontserratRegular,
+    MontserratMedium,
+    MontserratSemiBold,
   })
 
   const clerkPublishableKey =
     'pk_test_c291bmQtYm9hLTQ5LmNsZXJrLmFjY291bnRzLmRldiQ'
-
-  console.log(clerkPublishableKey)
 
   return isFontsLoaded ? (
     <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
