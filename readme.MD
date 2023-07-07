@@ -8,7 +8,7 @@
 
 <style>
   h1 {
-    border-bottom: none;
+    border-bottom-color: transparent;
     margin-bottom: 0;
   }
 </style>
