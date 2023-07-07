@@ -7,7 +7,7 @@ import happyWoman from '../assets/happy-woman.png'
 import { Button } from '../components/Button'
 import { AuthNavigatorRoutesProps } from '../routes/auth.routes'
 
-export function Home() {
+export function Welcome() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
   function handleStart() {
