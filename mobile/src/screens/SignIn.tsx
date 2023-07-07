@@ -5,6 +5,7 @@ import logo from '../assets/logo.png'
 import { Button } from '../components/Button'
 import { ButtonText } from '../components/ButtonText'
 import { Input } from '../components/Input'
+import { SignInGoogle } from '../components/SignInGoogle'
 import { bottomBarheight } from '../utils/bottom-bar-height'
 
 export function SignIn() {
@@ -34,6 +35,8 @@ export function SignIn() {
         </View>
 
         <Button title="Entrar" className="mt-10" />
+
+        <SignInGoogle />
       </View>
 
       <ButtonText text="Termos de uso" />

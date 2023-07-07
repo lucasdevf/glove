@@ -1,12 +1,12 @@
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-interface ButtonTextProps {
+interface ButtonTextProps extends TouchableOpacityProps {
   text: string
 }
 
-export function ButtonText({ text }: ButtonTextProps) {
+export function ButtonText({ text, ...rest }: ButtonTextProps) {
   return (
-    <TouchableOpacity className="text-right">
+    <TouchableOpacity className={rest.className} {...rest}>
       <Text className="text-primary font-subtitle">{text}</Text>
     </TouchableOpacity>
   )
