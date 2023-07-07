@@ -2,12 +2,20 @@ import { Image, Text, View } from 'react-native'
 
 import logo from '../assets/logo.png'
 
+import { useNavigation } from '@react-navigation/native'
 import happyWoman from '../assets/happy-woman.png'
 import { Button } from '../components/Button'
+import { AuthNavigatorRoutesProps } from '../routes/auth.routes'
 
 export function Home() {
+  const navigation = useNavigation<AuthNavigatorRoutesProps>()
+
+  function handleStart() {
+    navigation.navigate('sign-in')
+  }
+
   return (
-    <View className="flex flex-1 items-center justify-center space-y-10 px-12">
+    <View className="flex flex-1 items-center justify-center space-y-10 px-12 bg-white">
       <Image source={logo} alt="" />
 
       <View>
@@ -27,7 +35,7 @@ export function Home() {
 
       <Image source={happyWoman} alt="" className="w-96" />
 
-      <Button title="Iniciar" />
+      <Button title="Iniciar" onPress={handleStart} />
     </View>
   )
 }

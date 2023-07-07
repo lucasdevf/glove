@@ -6,8 +6,8 @@ import {
 } from '@expo-google-fonts/montserrat'
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native'
+import { Routes } from './src/routes'
 
-import { SignIn } from './src/screens/SignIn'
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -20,7 +20,7 @@ export default function App() {
     <>
       <StatusBar style="dark" backgroundColor="white" />
 
-      <SignIn />
+      <Routes />
     </>
   ) : (
     <Text>Carregando</Text>
