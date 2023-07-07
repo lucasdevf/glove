@@ -25,7 +25,7 @@ export function Home() {
         </Text>
       </View>
 
-      <Image source={happyWoman} alt="" />
+      <Image source={happyWoman} alt="" className="w-96" />
 
       <Button title="Iniciar" />
     </View>
