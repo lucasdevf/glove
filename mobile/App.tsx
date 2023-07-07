@@ -7,7 +7,7 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native'
 
-import { Home } from './src/screens/Home'
+import { SignIn } from './src/screens/SignIn'
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -20,7 +20,7 @@ export default function App() {
     <>
       <StatusBar style="dark" backgroundColor="white" />
 
-      <Home />
+      <SignIn />
     </>
   ) : (
     <Text>Carregando</Text>
