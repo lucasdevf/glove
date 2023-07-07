@@ -2,10 +2,12 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp
 } from '@react-navigation/native-stack'
+import { EnterValue } from '../screens/EnterValue'
 import { Home } from '../screens/Home'
 
 type AppRoutesScreens = {
   home: undefined
+  'enter-value': undefined
 }
 
 export type AppNavigatorRoutesProps =
@@ -21,6 +23,8 @@ export function AppRoutes() {
       }}
     >
       <Screen name="home" component={Home} />
+
+      <Screen name="enter-value" component={EnterValue} />
     </Navigator>
   )
 }
