@@ -12,13 +12,13 @@ import { Routes } from './src/routes'
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
-    MontserratRegular,
-    MontserratMedium,
-    MontserratSemiBold,
+    Montserrat_400Regular: MontserratRegular,
+    Montserrat_500Medium: MontserratMedium,
+    Montserrat_600SemiBold: MontserratSemiBold,
   })
 
   const clerkPublishableKey =
-    'pk_test_c291bmQtYm9hLTQ5LmNsZXJrLmFjY291bnRzLmRldiQ'
+    'pk_test_c291bmQtYm9hLTQ5LmNsZXJrLmFjY291bnRzLmRldiQ' // @todo: read variable from .env
 
   return isFontsLoaded ? (
     <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
