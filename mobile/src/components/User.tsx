@@ -1,4 +1,4 @@
-import { useAuth, useUser } from '@clerk/clerk-expo'
+import { useAuth, useSession, useUser } from '@clerk/clerk-expo'
 import { SignOut } from 'phosphor-react-native'
 
 import { Image, Text, TouchableOpacity, View } from 'react-native'
@@ -8,7 +8,17 @@ import { ButtonText } from './ButtonText'
 export function User() {
   const { user } = useUser()
 
+  const { session } = useSession()
+
   const { signOut } = useAuth()
+
+  async function getToken() {
+    const token = await session?.getToken()
+
+    console.log(token)
+  }
+
+  getToken()
 
   async function handleSignOut() {
     await signOut()
@@ -21,7 +31,7 @@ export function User() {
           <Image
             source={{ uri: user?.profileImageUrl }}
             alt=""
-            className="w-14 h-14 rounded-full border border-primary"
+            className="w-14 h-14 rounded-full"
           />
 
           <View className="flex flex-col">
