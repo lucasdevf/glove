@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { CreditCardsModule } from './credit-cards/credit-cards.module'
-import { FeesModule } from './fees/fees.module'
+import { RequestsModule } from './requests/requests.module'
 
 @Module({
-  imports: [CreditCardsModule, FeesModule],
+  imports: [CreditCardsModule, RequestsModule],
   controllers: [],
   providers: [],
 })

@@ -21,8 +21,78 @@ model CreditCard {
 
   archived Boolean @default(false)
 
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+
+  requests    Request[]
+
+  @@map("credit_cards")
+}
+
+enum PixKeyType {
+  cellphone
+  cpf
+  email
+  random
+}
+
+model PixKey {
+  id String @id @default(cuid())
+
+  key     String
+  type    PixKeyType
+  user_id String
+
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
-  @@map("credit_cards")
+  requests Request[]
+
+  @@map("pix_keys")
+}
+
+enum RequestStatus {
+  completed
+  in_progress
+}
+
+model Request {
+  id String @id @default(cuid())
+
+  value Float
+  tax_percent Float
+
+  pix_key_id String?
+  pix_key    PixKey? @relation(fields: [pix_key_id], references: [id])
+
+  credit_card_id     String?
+  credit_card CreditCard? @relation(fields: [credit_card_id], references: [id])
+
+  user_id String
+
+  status RequestStatus @default(in_progress)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  payments_options PaymentOption[]
+
+  @@map("requests")
+}
+
+model PaymentOption {
+  id String @id @default(cuid())
+
+  quantity Int
+  value    Float
+
+  request_id String
+  request    Request @relation(fields: [request_id], references: [id])
+
+  selected Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("payments_options")
 }
