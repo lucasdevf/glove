@@ -21,6 +21,7 @@ export class RequestsService {
 
     let installment = 1
 
+    // @note: the max installment is 12
     while (installment < 13) {
       const taxValue = taxPercent * value * installment
 
@@ -37,10 +38,10 @@ export class RequestsService {
       installment += 1
     }
 
-    await this.prisma.paymentOption.createMany({
+    const paymentOptionsCreated = await this.prisma.paymentOption.createMany({
       data: paymentOptions,
     })
 
-    return request
+    return { request, payment_options: paymentOptionsCreated }
   }
 }
