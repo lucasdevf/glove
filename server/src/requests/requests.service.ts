@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { calculateInstallments } from 'src/utils/calculate-installments'
 import { PrismaService } from '../prisma.service'
 import { CreateRequestDto } from './dto/create-request.dto'
 
@@ -17,29 +18,23 @@ export class RequestsService {
       },
     })
 
-    const paymentOptions = []
-
-    let installment = 1
-
-    // @note: the max installment is 12
-    while (installment < 13) {
-      const taxValue = taxPercent * value * installment
-
-      const totalValueWithTax = value + taxValue
-
-      const installmentValue = totalValueWithTax / installment
-
-      paymentOptions.push({
-        quantity: installment,
-        value: installmentValue,
+    const paymentOptions = calculateInstallments({
+      value,
+      taxPercent,
+      maxInstallments: 12,
+      data: {
         request_id: request.id,
-      })
+      },
+    })
 
-      installment += 1
-    }
-
-    const paymentOptionsCreated = await this.prisma.paymentOption.createMany({
+    await this.prisma.paymentOption.createMany({
       data: paymentOptions,
+    })
+
+    const paymentOptionsCreated = await this.prisma.paymentOption.findMany({
+      where: {
+        request_id: request.id,
+      },
     })
 
     return { request, payment_options: paymentOptionsCreated }
