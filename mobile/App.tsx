@@ -7,8 +7,11 @@ import {
 } from '@expo-google-fonts/montserrat'
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { tokenCache } from './src/auth/token-cache'
 import { Routes } from './src/routes'
+
+const queryClient = new QueryClient()
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -20,13 +23,20 @@ export default function App() {
   const clerkPublishableKey =
     'pk_test_c291bmQtYm9hLTQ5LmNsZXJrLmFjY291bnRzLmRldiQ' // @todo: read variable from .env
 
-  return isFontsLoaded ? (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
-      <StatusBar style="dark" backgroundColor="white" />
+  return (
+    <QueryClientProvider client={queryClient}>
+      {isFontsLoaded ? (
+        <ClerkProvider
+          tokenCache={tokenCache}
+          publishableKey={clerkPublishableKey}
+        >
+          <StatusBar style="dark" backgroundColor="white" />
 
-      <Routes />
-    </ClerkProvider>
-  ) : (
-    <Text>Carregando</Text>
+          <Routes />
+        </ClerkProvider>
+      ) : (
+        <Text>Carregando</Text>
+      )}
+    </QueryClientProvider>
   )
 }

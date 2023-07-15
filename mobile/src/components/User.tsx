@@ -12,14 +12,6 @@ export function User() {
 
   const { signOut } = useAuth()
 
-  async function getToken() {
-    const token = await session?.getToken()
-
-    console.log(token)
-  }
-
-  getToken()
-
   async function handleSignOut() {
     await signOut()
   }

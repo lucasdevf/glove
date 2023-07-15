@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
 import {
   KeyboardAvoidingView,
   Platform,
@@ -5,10 +7,60 @@ import {
   TextInput,
   View
 } from 'react-native'
+import { useMutation } from 'react-query'
 import { Button } from '../components/Button'
+import { Error } from '../components/Error'
 import { GoBackButton } from '../components/GoBackButton'
+import { PaymentOptionDto } from '../dto/PaymentOptionDto'
+import { RequestDto } from '../dto/RequestDto'
+import { AppError } from '../error/AppError'
+import { api } from '../http/api'
+import { AppNavigatorRoutesProps } from '../routes/app.routes'
+import { uesNewRequestStore } from '../stores/useNewRequestStore'
+
+interface MutationCreateRequest {
+  request: RequestDto
+  payment_options: PaymentOptionDto[]
+}
 
 export function EnterValue() {
+  const navigation = useNavigation<AppNavigatorRoutesProps>()
+
+  const {
+    setValue: setStoreValue,
+    setPaymentOptions,
+    setRequestId,
+  } = uesNewRequestStore()
+
+  const [value, setValue] = useState('0')
+
+  async function createRequest() {
+    const response = await api.post('/requests', {
+      value: Number(value),
+    })
+
+    return response.data
+  }
+
+  const { mutate, isLoading, error } = useMutation<
+    MutationCreateRequest,
+    AppError
+  >('create-request', createRequest, {
+    onSuccess: ({ request, payment_options: paymentOptions }) => {
+      setRequestId(request.id)
+
+      setPaymentOptions(paymentOptions)
+
+      setStoreValue(value)
+
+      navigation.navigate('select-payment')
+    },
+  })
+
+  function handleContinue() {
+    mutate()
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -31,11 +83,22 @@ export function EnterValue() {
               keyboardType="number-pad"
               autoFocus
               defaultValue="0"
+              value={value} // @todo: implements mask
+              onChangeText={setValue}
             />
           </View>
+
+          {error && <Error error={error.message} />}
         </View>
 
-        <Button title="Continuar" className="rounded-none" />
+        {value !== '' && value !== '0' && (
+          <Button
+            title="Continuar"
+            className="rounded-none"
+            onPress={handleContinue}
+            isLoading={isLoading}
+          />
+        )}
       </View>
     </KeyboardAvoidingView>
   )
