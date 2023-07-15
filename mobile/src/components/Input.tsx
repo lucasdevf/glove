@@ -25,7 +25,9 @@ export function Input({ label, name, classNameWrapper, ...rest }: InputProps) {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             {...rest}
-            className="h-12 bg-gray-200 rounded p-4"
+            className={`h-12 bg-gray-200 rounded p-4 ${
+              error && 'border border-red-500'
+            }`}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}

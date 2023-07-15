@@ -8,7 +8,7 @@ import { PaymentOptionDto } from '../dto/PaymentOptionDto'
 import { AppNavigatorRoutesProps } from '../routes/app.routes'
 import { uesNewRequestStore } from '../stores/useNewRequestStore'
 import { bottomBarheight } from '../utils/bottom-bar-height'
-import { valueFormatter } from '../utils/formatter'
+import { moneyFormatter } from '../utils/formatter'
 
 export function SelectPayment() {
   const { paymentOptions, selectPaymentOption } = uesNewRequestStore()
@@ -28,7 +28,7 @@ export function SelectPayment() {
   }
 
   function handleContinue() {
-    navigation.navigate('home')
+    navigation.navigate('select-credit-card')
 
     selectPaymentOption(paymentOptionId)
   }
@@ -61,7 +61,7 @@ export function SelectPayment() {
 
               <Text className="text-lg">
                 {paymentOption.quantity}x de R${' '}
-                {valueFormatter.format(paymentOption.value)}
+                {moneyFormatter.format(paymentOption.value)}
               </Text>
             </TouchableOpacity>
           ))}

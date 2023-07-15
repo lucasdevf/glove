@@ -13,7 +13,7 @@ export function EmptyList({
   onClickButton,
 }: EmptyListProps) {
   return (
-    <View className="flex flex-col items-center">
+    <View className="flex flex-1 justify-center flex-col items-center">
       <Text className="text-center text-xl font-subtitle mb-5">{title}</Text>
 
       <Button title={buttonTitle} className="w-64" onPress={onClickButton} />
